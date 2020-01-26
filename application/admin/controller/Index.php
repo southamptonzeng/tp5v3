@@ -22,6 +22,7 @@ class Index extends Controller
         }
         return view();
     }
+
     //注册
     public function register() {
         if ($this->request->isAjax()) {
@@ -49,5 +50,36 @@ class Index extends Controller
             'nickname' => 'xiaobai', 'email' => 'thinkphp@admin.com'
         ];
         model('Admin')->test($data);
+    }
+
+    //忘记密码
+    public function forget() {
+        if ($this->request->isAjax()) {
+            //随机数生成验证码
+            $code = mt_rand(1000, 9999);
+            //这里会给前端页面正确的验证码，存在session中
+           session('code', $code);
+            $result = mailto(input('post.email'), '重置密码验证码.', '验证码是:'.$code);
+            if ($result) {
+                $this->success('验证码发送成功!');
+            } else {
+                $this->error('验证码发送失败!');
+            }
+        }
+        return view();
+    }
+
+    //重置密码
+    public function reset() {
+        $data = [
+            'code' => input('post.code'),
+            'email' => input('post.email')
+        ];
+        $result = model('Admin')->reset($data);
+        if ($result == 1) {
+            $this->success('密码重置成功，请去邮箱查看新密码!', 'admin/index/login');
+        } else {
+            $this->error($result);
+        }
     }
 }
