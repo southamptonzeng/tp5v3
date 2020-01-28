@@ -6,6 +6,13 @@ use think\Controller;
 
 class Index extends Controller
 {
+    //重复登录过滤
+    public function initialize() {
+        if (session('?admin.id')) {
+            $this->redirect('admin/home/index');
+        }
+    }
+
     //后台登录
     public function login() {
         if ($this->request->isAjax()) {
@@ -15,7 +22,7 @@ class Index extends Controller
             ];
             $result = model('Admin')->login($data);
             if ($result == 1) {
-                $this->success('登录成功!', 'admin/index/login');
+                $this->success('登录成功!', 'admin/home/index');
             } else {
                 $this->error($result);
             }

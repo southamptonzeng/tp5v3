@@ -26,7 +26,7 @@ class Admin extends Model
             if ($result['status'] == 0) {
                 return "此账户被禁用!";
             }
-            //1表示由这个用户，也就时用户名和密码正确
+            //1表示有这个用户，也就时用户名和密码正确
             //存储用户的session
             $sessionData = ['id' => $result['id'],
                 'nickname' => $result['nickname'],

@@ -25,4 +25,6 @@ Route::group('admin', function () {
     Route::rule('test', 'admin/index/test', 'get');
     Route::rule('forget', 'admin/index/forget', 'get|post');
     Route::rule('reset', 'admin/index/reset', 'post');
+    Route::rule('index', 'admin/home/index', 'get');
+    Route::rule('logout', 'admin/home/logout', 'post');
 });
