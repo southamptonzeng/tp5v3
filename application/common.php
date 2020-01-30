@@ -13,6 +13,8 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+
+//发送邮件
 function mailto($to, $title, $content) {
     $mail = new PHPMailer(true);
     try {
@@ -41,4 +43,9 @@ function mailto($to, $title, $content) {
         //使用tp自带的抛出异常的方法，给定一个错误码1001
         exception($mail->ErrorInfo, 1001);
     }
+}
+
+//把span字符串替换成a
+function replace($data) {
+    return str_replace('span', 'a', $data);
 }
